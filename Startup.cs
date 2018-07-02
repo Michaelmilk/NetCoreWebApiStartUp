@@ -33,20 +33,22 @@ namespace WebApiServer
             //     Password=toolOnboarding_12345;
             //     MultipleActiveResultSets=False;
             //     Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-            services.AddDbContext<DataContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            // services.AddDbContext<DataContext>(options =>
+            //     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            TestConfiguations();
+
             //create db if not exist
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            {
-                var context = serviceScope.ServiceProvider.GetRequiredService<DataContext>();
-                context.Database.EnsureCreated();
-            }
+            // using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            // {
+            //     var context = serviceScope.ServiceProvider.GetRequiredService<DataContext>();
+            //     context.Database.EnsureCreated();
+            // }
 
             if (env.IsDevelopment())
             {
@@ -59,6 +61,11 @@ namespace WebApiServer
 
             app.UseHttpsRedirection();
             app.UseMvc();
+        }
+
+        public void TestConfiguations()
+        {
+            Console.WriteLine("Logging:LogLevel:Default{0}", this.Configuration["Logging:LogLevel:Default"]);
         }
     }
 }
