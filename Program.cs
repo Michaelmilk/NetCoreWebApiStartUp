@@ -15,6 +15,7 @@ namespace WebApiServer
         public static void Main(string[] args)
         {
             CreateWebHostBuilder(args).Build().Run();
+            //ConfigurationTest();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -25,7 +26,7 @@ namespace WebApiServer
         {
             var builder = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json").AddJsonFile("appsettings.1.json");
+            .AddJsonFile("appsettings.json");//.AddJsonFile("appsettings.1.json");
 
             IConfiguration configuration = builder.Build();
 

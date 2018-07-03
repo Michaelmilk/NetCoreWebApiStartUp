@@ -33,8 +33,8 @@ namespace WebApiServer
             //     Password=toolOnboarding_12345;
             //     MultipleActiveResultSets=False;
             //     Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-            // services.AddDbContext<DataContext>(options =>
-            //     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DataContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -44,11 +44,11 @@ namespace WebApiServer
             TestConfiguations();
 
             //create db if not exist
-            // using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            // {
-            //     var context = serviceScope.ServiceProvider.GetRequiredService<DataContext>();
-            //     context.Database.EnsureCreated();
-            // }
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetRequiredService<DataContext>();
+                context.Database.EnsureCreated();
+            }
 
             if (env.IsDevelopment())
             {
@@ -65,7 +65,9 @@ namespace WebApiServer
 
         public void TestConfiguations()
         {
-            Console.WriteLine("Logging:LogLevel:Default{0}", this.Configuration["Logging:LogLevel:Default"]);
+            Console.WriteLine("Logging:LogLevel:Default  :  {0}", this.Configuration["Logging:LogLevel:Default"]);
+            Console.WriteLine("Logging:LogLevel:System  :  {0}", this.Configuration["Logging:LogLevel:System"]);
+            Console.WriteLine("AllowedHosts1  :  {0}", this.Configuration["AllowedHosts1"]);
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebApiServer;
 
-namespace TodoApi.Controllers
+namespace WebApiServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
